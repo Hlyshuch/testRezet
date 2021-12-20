@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<body>
+    <script>
+        // задача № 1
+        let arr1 = [1,3,5,4,5,7];
+        const task1 = function(arr){
+            let rezult = [];
+            for ( let i = 1; i < arr.length-1; i++){
+                if(arr[i] < arr[i-1] && arr[i] < arr[i+1] || arr[i] > arr[i-1] && arr[i] > arr[i+1]){
+                    rezult.push(1);
+                }
+                else rezult.push(0);
+            }
+        return console.log(rezult);
+        }
+        task1(arr1);
+
+        // задача №2
+        let arr2 = [
+            [1,2,3,2,7,3,4],
+            [4,5,6,8,1,6,2],
+            [7,8,9,4,5,9,5],
+        ];
+        const task2 = function(arr){
+            let rezult = [];
+            for(let shift = 1; shift < arr[1].length -1; shift++){
+                let arrSet = new Set();
+                arr.forEach(elem => {
+                    for(let i = shift -1; i < shift+2; i++)
+                    arrSet.add(elem[i]);
+                });
+            if(arrSet.size == 9)
+                        rezult.push(true);
+            else rezult.push(false);
+            }
+            return console.log(rezult);
+        }
+        task2(arr2);
+
+        // задача №3
+        let arr = [
+                ["Hello","world"],
+                ["Brad","came","to","dinner","with","us"],
+                ["He", "loves", "tacos"]
+            ];
+        let textSide = ["LEFT","RIGHT","LEFT"];
+        let limitSymbols = 16;
+
+        const test3  = function(arr, format, limit){
+            let rezult = [];
+            let indexCount = 0;
+            const formatStr = (str, index) =>{
+                let formatSymbol = " ".repeat(limit - str.length);
+                if (rezult.length == 0)
+                    rezult.push("*".repeat(limit+2))
+                if(format[index] == "LEFT"){
+                    rezult.push("*"+str+formatSymbol+"*");
+                }
+                else {
+                    rezult.push("*"+formatSymbol+str+"*"); 
+                }
+            }
+            arr.forEach(str => {
+                let chunks = Math.ceil(str.join(" ").length/limit);
+                if(chunks > 1){
+                    let start = 0;
+                    let chunk = "";
+                    for(let i = start; i < str.length;i++){
+                        chunk += str[i]+" ";
+                        let shift = chunk + str[i+1];
+                        if(shift.length >= limit || i == str.length){
+                            formatStr(chunk.trim(), indexCount);
+                            chunk = "";
+                            start = i+1;
+                        }
+                    }
+                }
+                else formatStr(str.join(" "), indexCount);
+                indexCount++;
+            });
+            rezult.push("*".repeat(limit+2));
+            return console.log(rezult);
+        }
+
+        test3(arr, textSide, limitSymbols);
+
+ 
+   
+        
+    </script>
+</body>
+</html>
